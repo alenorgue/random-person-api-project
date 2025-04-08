@@ -9,7 +9,7 @@ const country = document.getElementById('country');
 const phone = document.getElementById('phone');
 const email = document.getElementById('email');
 
-let interval = setInterval(getNewPerson, 5000);
+let interval = null;
 
 async function getRandomPerson() {
     try {
@@ -30,8 +30,11 @@ async function getRandomPerson() {
         button.style.display = 'none' ;
         buttonInterview.style.display = 'block' ;
 
-        
-    }
+        if (!interval) {
+            interval = setInterval(getNewPerson, 5000); 
+    }}
+
+    button.addEventListener(`click`, getRandomPerson);
 
 async function getNewPerson() {
     try {
@@ -39,9 +42,7 @@ async function getNewPerson() {
     } catch (error) {
         console.error("Error al obtener persona:", error);
     }
-      clearInterval(interval); 
 
-     interval = setInterval(getNewPerson, 5000);
   }
   
   function addNewContact(name, phone) {
